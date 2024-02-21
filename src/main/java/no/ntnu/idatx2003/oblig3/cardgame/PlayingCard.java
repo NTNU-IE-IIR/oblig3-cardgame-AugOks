@@ -12,6 +12,10 @@ public class PlayingCard {
 
   private final char suit; // 'S'=spade, 'H'=heart, 'D'=diamonds, 'C'=clubs
   private final int face; // a number between 1 and 13
+  public static final char HEARTS = 'H';
+  public static final char SPADES = 'S';
+  public static final char DIAMONDS = 'D';
+  public static final char CLUBS = 'C';
 
   /**
    * Creates an instance of a PlayingCard with a given suit and face.
