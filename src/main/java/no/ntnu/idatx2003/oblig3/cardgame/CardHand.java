@@ -15,9 +15,9 @@ public class CardHand {
     this.hand.addAll(deck.dealHand(n));
   }
   public void removeHand(){
-    for(PlayingCard card : this.hand){
-      this.hand.remove(card);
-    }
+    ArrayList<PlayingCard> remove;
+    remove = this.hand;
+    hand.removeAll(remove);
   }
   public List<PlayingCard> returnHand(){
 

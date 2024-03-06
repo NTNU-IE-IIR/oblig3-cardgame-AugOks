@@ -66,13 +66,16 @@ public class CardDeck {
     }
     Object[] cards = this.cardDeck.values().toArray();
     List<PlayingCard> hand = new ArrayList<>();
+    HashMap<String,PlayingCard> removedHand = new HashMap<>();
     Random rand = new Random();
     for(int i = 1; i <= n; i++){
-      PlayingCard nextRandCard = (PlayingCard)cards[rand.nextInt(52)];
+      PlayingCard nextRandCard = (PlayingCard)cards[rand.nextInt(52-i)];
       hand.add(nextRandCard);
+      removedHand.put(nextRandCard.getAsString(), nextRandCard);
       this.cardDeck.remove(nextRandCard.getAsString());
 
     }
+    this.cardDeck.putAll(removedHand);
     return hand;
   }
 
