@@ -1,27 +1,71 @@
 package no.ntnu.idatx2003.oblig3.cardgame;
 
+import static java.util.stream.Collectors.groupingBy;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class CardHand {
-  ArrayList<PlayingCard> hand;
+  private HashMap<String, PlayingCard> hand;
 
   public CardHand(){
-    this.hand = new ArrayList<>();
+    this.hand = new HashMap<>();
   }
   public void createHand(int n, CardDeck deck){
-
-    this.hand.addAll(deck.dealHand(n));
+    for(PlayingCard card : deck.dealHand(n)){
+      this.hand.put(card.getAsString(), card);
+    }
   }
   public void removeHand(){
-    ArrayList<PlayingCard> remove;
-    remove = this.hand;
-    hand.removeAll(remove);
+    hand.clear();
   }
   public List<PlayingCard> returnHand(){
 
-    List<PlayingCard> hand = this.hand;
-    return hand;
+    return this.hand.values().stream().toList();
+  }
+
+  public int checkSum(){
+    int sum = 0;
+    for (PlayingCard card : hand.values()){
+      sum += card.getFace();
+    }
+    return sum;
+  }
+  public List<String> checkHearts(){
+    List<String> suits = new ArrayList<>();
+    for(PlayingCard card : hand.values()){
+      if (card.getSuit() == PlayingCard.HEARTS){
+        suits.add(card.getAsString());
+      }
+    }
+    return suits;
+  }
+  public boolean checkQueenSpades(){
+    boolean success = false;
+    if(this.hand.containsKey("S12")){
+      success = true;
+    }
+    return  success;
+  }
+
+  /**
+   * Streams would be better here, but I don't understand streams and hate it.
+   * @return true if flush was found.
+   */
+  public boolean checkFlush(){
+    boolean flush = false;
+    ArrayList<PlayingCard> cards = new ArrayList<>(this.hand.values());
+    if (cards.get(1).getSuit() == cards.get(0).getSuit() &&
+        cards.get(2).getSuit() == cards.get(0).getSuit() &&
+        cards.get(3).getSuit() == cards.get(0).getSuit() &&
+        cards.get(4).getSuit() == cards.get(0).getSuit() ){
+      flush = true;
+    }
+    return flush;
   }
 }

@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
@@ -15,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -23,6 +25,12 @@ public class Ui extends Application {
   private CardGameController controller;
 
   private FlowPane cardsNode;
+  private BorderPane rootNode;
+  private Label sumLabel;
+  private Label hearts;
+  private Label spade;
+  private Label flush;
+
   /**
    * Construct the main window.
    *
@@ -34,10 +42,10 @@ public class Ui extends Application {
     controller = new CardGameController(this);
     cardsNode = new FlowPane();
 
-    BorderPane rootNode = new BorderPane();
+    rootNode = new BorderPane();
 
     VBox rightPane = new VBox();
-    HBox bottomPane = new HBox();
+
 
     Button DealHand = new Button("Deal hand");
     Button checkHand = new Button("Check hand");
@@ -46,9 +54,46 @@ public class Ui extends Application {
       controller.DealNewHand();
     });
     checkHand.setOnAction(actionEvent -> {
+      controller.checkHand();
 
     });
+    VBox fields = new VBox();
+    HBox topBox = new HBox();
+    HBox botBox = new HBox();
 
+    HBox sumBox = new HBox();
+    HBox heartBox = new HBox();
+    HBox flushBox = new HBox();
+    HBox spadeBox = new HBox();
+
+    Text sumCards = new Text("sum of all cards: ");
+    sumLabel = new Label("-");
+    sumBox.getChildren().addAll(sumCards,sumLabel);
+
+
+    Text cardsHearts = new Text( " cards of hearts: ");
+    hearts = new Label("-");
+    heartBox.getChildren().addAll(cardsHearts, hearts);
+
+
+    Text flushCards = new Text("Flush: ");
+    flush = new Label("-");
+    flushBox.getChildren().addAll(flushCards, flush);
+
+    Text qSpade = new Text("queen of spades: ");
+    spade = new Label("-");
+    spadeBox.getChildren().addAll(qSpade, spade);
+
+    topBox.setSpacing(50);
+    topBox.getChildren().addAll(sumBox, heartBox);
+    fields.getChildren().add(topBox);
+
+    botBox.setSpacing(50);
+    botBox.getChildren().addAll(flushBox, spadeBox);
+    fields.getChildren().add(botBox);
+    botBox.setPadding(new Insets(50));
+    topBox.setPadding(new Insets(50));
+    rootNode.setBottom(fields);
     rightPane.getChildren().add(DealHand);
     rightPane.getChildren().add(checkHand);
     rootNode.setRight(rightPane);
@@ -102,5 +147,17 @@ public class Ui extends Application {
     } catch (Exception e){
       System.out.println(e.getMessage());
     }
+  }
+  public void displaySum(int n){
+    this.sumLabel.setText(String.valueOf(n));
+  }
+  public void displayHearts(String s){
+    this.hearts.setText(s);
+  }
+  public void displayFlush(String s){
+    this.flush.setText(s);
+  }
+  public void displayQSpade(String s){
+   this.spade.setText(s);
   }
 }
