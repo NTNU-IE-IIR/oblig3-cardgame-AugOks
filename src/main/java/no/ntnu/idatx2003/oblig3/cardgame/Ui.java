@@ -89,12 +89,13 @@ public class Ui extends Application {
       for (PlayingCard card : cards){
         path = "file:src/resources/";
         path = path + card.getAsString() + ".png";
-        System.out.println(path);
         Image image = new Image(path);
         ImageView cardImage = new ImageView();
+
         cardImage.setImage(image);
         cardImage.setFitHeight(200);
         cardImage.setPreserveRatio(true);
+
         cardsNode.getChildren().add(cardImage);
       }
       System.out.println("dealing new Hand");
