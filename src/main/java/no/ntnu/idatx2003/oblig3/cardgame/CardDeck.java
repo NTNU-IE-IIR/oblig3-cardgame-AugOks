@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class CardDeck {
 
-  HashMap<String, PlayingCard> cardDeck;
+  ArrayList<PlayingCard> cardDeck;
 
   private final char[] suits = {PlayingCard.CLUBS, PlayingCard.HEARTS,
       PlayingCard.DIAMONDS, PlayingCard.SPADES};
@@ -25,7 +25,7 @@ public class CardDeck {
    * Constructor.
    */
   public CardDeck(){
-    this.cardDeck = new HashMap<>();
+    this.cardDeck = new ArrayList<>();
     this.initCardDeck();
   }
 
@@ -38,21 +38,15 @@ public class CardDeck {
       return false;
     }
 
-    String key =  String.valueOf(card.getSuit()) + card.getFace();
-    cardDeck.put(key, card);
+    this.cardDeck.add(card);
 
     return true;
 
   }
-  public PlayingCard getCardByValue(String key){
-    if (key == null){
-      throw new IllegalArgumentException("key is null");
-    }
-   return cardDeck.get(key);
-  }
+
   public void printAllCards(){
 
-    for (PlayingCard playingCard : cardDeck.values()) {
+    for (PlayingCard playingCard : cardDeck) {
       System.out.println(playingCard.getAsString());
 
     }
@@ -64,18 +58,19 @@ public class CardDeck {
     if (n > 52 || n < 1){
       throw  new IllegalArgumentException("not a valid number of cards to draw from the deck.");
     }
-    Object[] cards = this.cardDeck.values().toArray();
-    List<PlayingCard> hand = new ArrayList<>();
-    HashMap<String,PlayingCard> removedHand = new HashMap<>();
+    ArrayList<PlayingCard> cards = new ArrayList<>(this.cardDeck);
+    ArrayList<PlayingCard> hand = new ArrayList<>();
     Random rand = new Random();
+    ArrayList<PlayingCard> removedHand = new ArrayList<>();
     for(int i = 1; i <= n; i++){
-      PlayingCard nextRandCard = (PlayingCard)cards[rand.nextInt(52-i)];
+      int nextRandInt  = rand.nextInt(cards.size()-1);
+      PlayingCard nextRandCard = cards.get(nextRandInt);
       hand.add(nextRandCard);
-      removedHand.put(nextRandCard.getAsString(), nextRandCard);
-      this.cardDeck.remove(nextRandCard.getAsString());
+      //removedHand.add(nextRandCard);
+      cards.remove(nextRandCard);
 
     }
-    this.cardDeck.putAll(removedHand);
+    //cards.addAll(removedHand);
     return hand;
   }
 
@@ -88,7 +83,7 @@ public class CardDeck {
     for (char suit : this.suits) {
       for (int j = 1; j <= 13; j++) {
         PlayingCard card = new PlayingCard(suit, j);
-        this.cardDeck.put(card.getAsString(), card);
+        this.cardDeck.add(card);
       }
     }
   }

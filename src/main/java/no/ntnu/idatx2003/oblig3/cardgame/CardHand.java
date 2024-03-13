@@ -59,11 +59,8 @@ public class CardHand {
    */
   public boolean checkFlush(){
     boolean flush = false;
-    ArrayList<PlayingCard> cards = new ArrayList<>(this.hand.values());
-    if (cards.get(1).getSuit() == cards.get(0).getSuit() &&
-        cards.get(2).getSuit() == cards.get(0).getSuit() &&
-        cards.get(3).getSuit() == cards.get(0).getSuit() &&
-        cards.get(4).getSuit() == cards.get(0).getSuit() ){
+    int n = (int) this.hand.values().stream().map(PlayingCard::getSuit).distinct().count();
+    if (n == 1){
       flush = true;
     }
     return flush;
