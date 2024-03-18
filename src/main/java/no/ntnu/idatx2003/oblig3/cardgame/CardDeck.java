@@ -16,7 +16,9 @@ import java.util.Random;
 public class CardDeck {
 
   ArrayList<PlayingCard> cardDeck;
-
+  /**
+   * The suits of the cards.
+   */
   private final char[] suits = {PlayingCard.CLUBS, PlayingCard.HEARTS,
       PlayingCard.DIAMONDS, PlayingCard.SPADES};
 
@@ -37,23 +39,16 @@ public class CardDeck {
     if (card == null){
       return false;
     }
-
     this.cardDeck.add(card);
 
     return true;
-
   }
 
-  public void printAllCards(){
-
-    for (PlayingCard playingCard : cardDeck) {
-      System.out.println(playingCard.getAsString());
-
-    }
-  }
-  public void shuffle(){
-
-  }
+  /**
+   * Deals a hand of cards from the deck, deals n amount of cards.
+   * @param n the amount of cards to deal.
+   * @return a list of cards.
+   */
     public List<PlayingCard> dealHand(int n){
     if (n > 52 || n < 1){
       throw  new IllegalArgumentException("not a valid number of cards to draw from the deck.");
@@ -66,11 +61,8 @@ public class CardDeck {
       int nextRandInt  = rand.nextInt(cards.size()-1);
       PlayingCard nextRandCard = cards.get(nextRandInt);
       hand.add(nextRandCard);
-      //removedHand.add(nextRandCard);
       cards.remove(nextRandCard);
-
     }
-    //cards.addAll(removedHand);
     return hand;
   }
 

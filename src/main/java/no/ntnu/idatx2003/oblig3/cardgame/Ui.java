@@ -101,17 +101,6 @@ public class Ui extends Application {
 
 
     try {
-      /*
-
-      Image image = new Image("file:src/resources/C1.png");
-      ImageView cardImage = new ImageView();
-      cardImage.setImage(image);
-      cardNode.getChildren().add(cardImage);
-      cardNode.setHgap(5);
-      cardNode.setVgap(5);
-      Scene cardScene = new Scene(cardNode, 200, 300);
-
-       */
       Scene scene = new Scene(rootNode,500, 500);
       stage.setScene(scene);
       stage.setTitle("Card game");
@@ -125,6 +114,10 @@ public class Ui extends Application {
     launch();
   }
 
+  /**
+   * Shows the hand of cards. Not made to be run as a package.
+   * @param hand The hand to show.
+   */
   public void showHand(CardHand hand){
     List<PlayingCard> cards = hand.returnHand();
     try{
@@ -148,15 +141,31 @@ public class Ui extends Application {
       System.out.println(e.getMessage());
     }
   }
+  /**
+   * Displays the sum of the cards in the hand.
+   * @param n the sum of the cards.
+   */
   public void displaySum(int n){
     this.sumLabel.setText(String.valueOf(n));
   }
+  /**
+   * Displays the number of hearts in the hand.
+   * @param s all the cards of hearts.
+   */
   public void displayHearts(String s){
     this.hearts.setText(s);
   }
+  /**
+   * Displays if the hand is a flush or not.
+   * @param s yes or no
+   */
   public void displayFlush(String s){
     this.flush.setText(s);
   }
+    /**
+     * Displays if the hand contains the queen of spades.
+     * @param s yes or no
+     */
   public void displayQSpade(String s){
    this.spade.setText(s);
   }
