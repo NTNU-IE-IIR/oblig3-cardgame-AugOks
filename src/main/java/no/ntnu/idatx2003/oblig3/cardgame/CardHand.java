@@ -70,7 +70,7 @@ public class CardHand {
 
   /**
    * Checks if the hand contains hearts.
-   * @return a list of hearts.
+   * @return
    */
   public List<String> checkHearts(){
     List<String> suits = new ArrayList<>();
